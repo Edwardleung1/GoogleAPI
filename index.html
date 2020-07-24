@@ -18,12 +18,19 @@
       function initMap() {
         // Map options
         let options = {
-          zoom: 9,
+          zoom: 8,
           center: { lat: 53.4084, lng: -2.9916 },
         };
         // New map
         let map = new google.maps.Map(document.getElementById("map"), options);
 
+        // Listen for click on map
+        google.maps.event.addListener(map, "click", function (event) {
+          // Add marker
+          addMarker({
+            coords: event.latLng,
+          });
+        });
         /*
         // Custom marker
         // var iconBase =
@@ -48,15 +55,30 @@
         });
         */
 
-        // Calling the function
-        addMarker({
-          coords: { lat: 53.4311, lng: -2.91 },
-          iconImage:
-            "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
-          content: "<h1>West Derby</h1>",
-        });
-        addMarker({ coords: { lat: 53.4808, lng: -2.2426 } });
-        addMarker({ coords: { lat: 53.1905, lng: -2.89189 } });
+        // Array of markers
+        let markers = [
+          {
+            coords: { lat: 53.4311, lng: -2.91 },
+            iconImage:
+              "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
+            content: "<h1>West Derby</h1>",
+          },
+          {
+            coords: { lat: 53.4808, lng: -2.2426 },
+            content: "<h1>Manchester</h1>",
+          },
+          {
+            coords: { lat: 53.1905, lng: -2.89189 },
+            content: "<h1>Chester</h1>",
+          },
+        ];
+
+        // Loop through markers
+        for (let i = 0; i < markers.length; i++) {
+          // Add marker
+          addMarker(markers[i]);
+        }
+
         // Add Marker Function
         function addMarker(props) {
           let marker = new google.maps.Marker({
