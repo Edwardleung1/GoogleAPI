@@ -18,16 +18,32 @@
       function initMap() {
         // Map options
         let options = {
-          zoom: 8,
+          zoom: 9,
           center: { lat: 53.4084, lng: -2.9916 },
         };
         // New map
         let map = new google.maps.Map(document.getElementById("map"), options);
 
+        // Custom marker
+        // var iconBase =
+        //   "https://developers.google.com/maps/documentation/javascript/examples/full/images/";
+
         // Add marker
         let marker = new google.maps.Marker({
           position: { lat: 53.4311, lng: -2.91 },
           map: map,
+          icon:
+            "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
+        });
+
+        // Add text
+        let infoWindow = new google.maps.InfoWindow({
+          content: "<h1>West Derby</h1>",
+        });
+
+        // Add event listener for text (infoWindow)
+        marker.addListener("click", function () {
+          infoWindow.open(map, marker);
         });
       }
     </script>
